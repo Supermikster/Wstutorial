@@ -1,5 +1,5 @@
 
-var name = prompt('What is your name fella?');
+var name = prompt('What is your name?');
 
 var sock =  new WebSocket("ws://localhost:3000/");
 
@@ -9,14 +9,17 @@ var sock =  new WebSocket("ws://localhost:3000/");
             type: "name",
             data: name
         }));
+        if(sock.onopen){ 
+            log.innerHTML += "You: has been connected to the server!"+"<br>";
+    } 
 }
-
 var log = document.getElementById('log');
 
     sock.onmessage = function(event){
-        console.log(event);
+        console.log(event);  
             var json = JSON.parse(event.data);
                 log.innerHTML += json.name+": "+json.data+"<br>";
+                        
 }
     
     document.querySelector('button').onclick = function(){
